@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DEV STUDIO — створення сайтів і Telegram-ботів. Портфоліо BLACK LINE та NESSI.">
+  <meta name="theme-color" content="#09090d">
+  <title>DEV STUDIO — Сайти та Telegram-боти</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2309090d'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,sans-serif' font-size='39' font-weight='800' fill='%23b56cff'%3ED%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090d;
+      --panel: #111118;
+      --panel-2: #15131d;
+      --text: #f7f4fb;
+      --muted: #aaa5b4;
+      --purple: #b56cff;
+      --purple-2: #853dff;
+      --line: rgba(191, 145, 255, .17);
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      background: radial-gradient(ellipse at 78% 5%, rgba(133,61,255,.12), transparent 36%),
+                  radial-gradient(ellipse at 4% 45%, rgba(181,108,255,.07), transparent 33%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+    .header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9,9,13,.82);
+      backdrop-filter: blur(18px);
+    }
+    .header-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 900; letter-spacing: .17em; white-space: nowrap; }
+    .logo-mark {
+      display: grid; width: 34px; height: 34px; place-items: center;
+      border: 1px solid rgba(181,108,255,.45); border-radius: 10px;
+      background: linear-gradient(145deg, rgba(181,108,255,.22), rgba(133,61,255,.05));
+      color: var(--purple); font-size: 16px; letter-spacing: 0;
+      box-shadow: 0 0 24px rgba(133,61,255,.14);
+    }
+    .logo-word span { color: var(--purple); }
+    nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 30px); }
+    nav a { color: #d1cbd9; font-size: 13px; font-weight: 650; transition: color .2s ease; }
+    nav a:hover { color: var(--purple); }
+    .header-actions { display: flex; align-items: center; gap: 14px; }
+    .lang-switch { display: inline-flex; gap: 3px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: #111118; }
+    .lang-switch button { border: 0; border-radius: 999px; padding: 6px 9px; color: var(--muted); background: transparent; font: inherit; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .lang-switch button[aria-pressed="true"] { color: #fff; background: #492476; }
+
+    .button {
+      display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 20px; border: 1px solid rgba(213,183,255,.35); border-radius: 11px;
+      background: linear-gradient(135deg, #a953f5, #7734e7); color: #fff;
+      font-size: 13px; font-weight: 800; letter-spacing: .025em;
+      box-shadow: 0 8px 30px rgba(133,61,255,.2); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 12px 34px rgba(133,61,255,.3); }
+    .button.secondary { border-color: var(--line); background: rgba(255,255,255,.035); box-shadow: none; }
+    .button.small { min-height: 38px; padding-inline: 14px; font-size: 12px; }
+
+    .hero { position: relative; overflow: hidden; padding: clamp(82px, 12vw, 150px) 0 92px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(310px,.92fr); align-items: center; gap: 55px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #d8baff; font-size: 11px; font-weight: 850; letter-spacing: .21em; text-transform: uppercase; }
+    .eyebrow::before { width: 24px; height: 1px; background: var(--purple); content: ""; box-shadow: 0 0 10px var(--purple); }
+    h1 { max-width: 740px; margin: 20px 0 19px; font-size: clamp(47px, 7vw, 82px); line-height: .99; letter-spacing: -.065em; }
+    h1 span { color: var(--purple); text-shadow: 0 0 32px rgba(181,108,255,.24); }
+    .hero-copy { max-width: 570px; margin: 0; color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
+    .hero-note { margin: 18px 0 0; color: #777180; font-size: 12px; }
+    .visual { position: relative; min-height: 360px; display: grid; place-items: center; }
+    .visual-glow { position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%; background: #7628d9; filter: blur(95px); opacity: .19; }
+    .code-card {
+      position: relative; width: min(100%, 410px); padding: 23px; border: 1px solid rgba(198,160,255,.26); border-radius: 22px;
+      background: linear-gradient(145deg, rgba(24,21,32,.96), rgba(12,12,18,.94));
+      box-shadow: 0 25px 85px rgba(0,0,0,.43), inset 0 1px rgba(255,255,255,.05); transform: rotate(2deg);
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .dots { display: flex; gap: 6px; }
+    .dots i { width: 7px; height: 7px; display: block; border-radius: 50%; background: #55465f; }
+    .dots i:first-child { background: var(--purple); }
+    .card-caption { color: #9c94a8; font-size: 10px; font-weight: 800; letter-spacing: .15em; }
+    .card-title { margin: 24px 0 6px; font-size: 22px; font-weight: 800; }
+    .card-subtitle { margin: 0 0 22px; color: var(--muted); font-size: 13px; }
+    .stack { display: grid; gap: 10px; }
+    .stack-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid rgba(255,255,255,.06); border-radius: 12px; background: rgba(255,255,255,.025); color: #e8e2ef; font-size: 12px; font-weight: 700; }
+    .stack-icon { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 8px; background: rgba(181,108,255,.14); color: var(--purple); font-size: 12px; }
+    .card-bottom { display: flex; justify-content: space-between; margin-top: 20px; color: #898291; font-size: 10px; }
+    .card-bottom strong { color: #d8baff; }
+
+    section.section { padding: 88px 0; border-top: 1px solid rgba(191,145,255,.1); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 34px; }
+    .section-kicker { color: var(--purple); font-size: 11px; font-weight: 850; letter-spacing: .2em; text-transform: uppercase; }
+    h2 { margin: 8px 0 0; font-size: clamp(30px, 4vw, 48px); line-height: 1.08; letter-spacing: -.045em; }
+    .section-intro { max-width: 390px; margin: 0; color: var(--muted); font-size: 14px; }
+
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .service-card { min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(150deg, rgba(26,22,35,.92), rgba(15,15,21,.92)); transition: border-color .25s ease, transform .25s ease; }
+    .service-card:hover { transform: translateY(-4px); border-color: rgba(181,108,255,.55); }
+    .service-number { color: var(--purple); font-size: 11px; font-weight: 900; letter-spacing: .15em; }
+    .service-card h3 { margin: 22px 0 8px; font-size: 19px; }
+    .service-card p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .project-card { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .project-art { min-height: 210px; display: flex; align-items: center; justify-content: center; padding: 30px; background: radial-gradient(ellipse at 50% 90%, rgba(133,61,255,.3), transparent 57%), linear-gradient(145deg, #1a1722, #0d0d12); }
+    .project-art.blackline { background: radial-gradient(ellipse at 80% 35%, rgba(181,108,255,.3), transparent 45%), linear-gradient(135deg, #18141f, #09090d 70%); }
+    .project-art.nessi { background: radial-gradient(ellipse at 20% 25%, rgba(99,102,241,.28), transparent 48%), linear-gradient(135deg, #11121b, #0a0a10 70%); }
+    .mock-window { width: min(100%, 360px); padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(8,8,12,.76); box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+    .mock-label { color: #a69caf; font-size: 9px; font-weight: 850; letter-spacing: .18em; }
+    .mock-brand { margin-top: 11px; font-size: 22px; font-weight: 950; letter-spacing: .15em; }
+    .mock-brand span { color: var(--purple); }
+    .mock-lines { display: grid; gap: 6px; margin-top: 15px; }
+    .mock-lines i { height: 5px; border-radius: 9px; background: rgba(255,255,255,.14); }
+    .mock-lines i:nth-child(1) { width: 82%; background: rgba(181,108,255,.56); }
+    .mock-lines i:nth-child(2) { width: 65%; }
+    .mock-lines i:nth-child(3) { width: 42%; }
+    .bot-mock { width: min(100%, 280px); padding: 17px; border: 1px solid rgba(180,166,255,.24); border-radius: 17px; background: rgba(13,14,22,.9); box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+    .bot-head { display: flex; align-items: center; gap: 10px; padding-bottom: 13px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .bot-avatar { width: 33px; height: 33px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(135deg,#7358ed,#ba69f5); font-weight: 900; }
+    .bot-name { font-size: 12px; font-weight: 800; }
+    .bot-online { color: #8f89a0; font-size: 9px; }
+    .bot-message { margin: 14px 0 10px; padding: 11px; border-radius: 10px 10px 10px 3px; background: #1d1c2a; color: #e8e4f3; font-size: 10px; }
+    .bot-pill { margin-top: 7px; padding: 8px; border: 1px solid rgba(181,108,255,.25); border-radius: 8px; color: #d9bbff; text-align: center; font-size: 9px; font-weight: 750; }
+    .project-info { padding: 22px; }
+    .project-type { color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+    .project-info h3 { margin: 7px 0; font-size: 22px; }
+    .project-info p { min-height: 44px; margin: 0; color: var(--muted); font-size: 13px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 17px 0 20px; }
+    .tag { padding: 5px 9px; border: 1px solid rgba(255,255,255,.09); border-radius: 999px; color: #c9c2d1; font-size: 10px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; counter-reset: work; }
+    .step { position: relative; padding: 22px; border-top: 1px solid rgba(181,108,255,.48); background: linear-gradient(180deg, rgba(181,108,255,.06), transparent 75%); counter-increment: work; }
+    .step::before { content: "0" counter(work); color: var(--purple); font-size: 11px; font-weight: 900; letter-spacing: .15em; }
+    .step h3 { margin: 15px 0 7px; font-size: 17px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .contact-panel { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: clamp(25px,5vw,48px); border: 1px solid rgba(181,108,255,.3); border-radius: 20px; background: radial-gradient(ellipse at 90% 50%, rgba(133,61,255,.2), transparent 48%), #111018; }
+    .contact-panel h2 { max-width: 580px; }
+    .contact-panel p { margin: 12px 0 0; color: var(--muted); }
+    footer { padding: 24px 0; border-top: 1px solid var(--line); color: #817b89; font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 850px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 25px; }
+      .visual { min-height: 310px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .section-intro { max-width: 560px; }
+      .service-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 650px) {
+      .wrap { width: min(var(--max), calc(100% - 32px)); }
+      .header-inner { min-height: 68px; flex-wrap: wrap; gap: 8px; padding-block: 10px; }
+      .logo { font-size: 14px; }
+      .logo-mark { width: 31px; height: 31px; }
+      nav { order: 3; width: 100%; justify-content: space-between; gap: 10px; padding: 4px 0 2px; }
+      nav a { font-size: 11px; }
+      .header-actions { margin-left: auto; }
+      .header-actions .button { display: none; }
+      .hero { padding: 68px 0 62px; }
+      h1 { font-size: clamp(45px, 13vw, 68px); }
+      .hero-actions { display: grid; grid-template-columns: 1fr; max-width: 330px; }
+      .visual { min-height: 280px; }
+      .code-card { padding: 18px; }
+      section.section { padding: 64px 0; }
+      .service-grid, .project-grid, .steps { grid-template-columns: 1fr; }
+      .service-card { min-height: auto; }
+      .project-art { min-height: 185px; }
+      .contact-panel { align-items: flex-start; flex-direction: column; }
+      .footer-inner { flex-direction: column; gap: 5px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="logo" href="#top" aria-label="DEV STUDIO">
+        <span class="logo-mark">D</span>
+        <span class="logo-word">DEV <span>STUDIO</span></span>
+      </a>
+      <nav aria-label="Головна навігація">
+        <a href="#services" data-ua="Послуги" data-en="Services">Послуги</a>
+        <a href="#projects" data-ua="Проєкти" data-en="Projects">Проєкти</a>
+        <a href="#process" data-ua="Процес" data-en="Process">Процес</a>
+        <a href="#contact" data-ua="Контакт" data-en="Contact">Контакт</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Мова сайту">
+          <button type="button" data-lang="uk" aria-pressed="true">UA</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="button small" href="https://t.me/WhoisNessi" target="_blank" rel="noopener noreferrer" data-ua="Написати" data-en="Contact me">Написати</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow" data-ua="Веброзробка та автоматизація" data-en="Web development & automation">Веброзробка та автоматизація</div>
+          <h1 data-ua="Створюю цифрові рішення з характером<span>.</span>" data-en="Digital projects with a distinct character<span>.</span>">Створюю цифрові рішення з характером<span>.</span></h1>
+          <p class="hero-copy" data-ua="Розробляю сайти та Telegram-боти для ідей, які хочеться показати світові. Просто, виразно й під конкретну задачу." data-en="I build websites and Telegram bots for ideas worth sharing. Clear, distinctive, and shaped around a real brief.">Розробляю сайти та Telegram-боти для ідей, які хочеться показати світові. Просто, виразно й під конкретну задачу.</p>
+          <div class="hero-actions">
+            <a class="button" href="#projects" data-ua="Переглянути проєкти" data-en="Explore projects">Переглянути проєкти <span aria-hidden="true">↘</span></a>
+            <a class="button secondary" href="https://t.me/WhoisNessi" target="_blank" rel="noopener noreferrer" data-ua="Обговорити задачу" data-en="Discuss a project">Обговорити задачу</a>
+          </div>
+          <p class="hero-note" data-ua="Портфоліо-проєкти: BLACK LINE та NESSI." data-en="Portfolio projects: BLACK LINE and NESSI.">Портфоліо-проєкти: BLACK LINE та NESSI.</p>
+        </div>
+        <div class="visual" aria-hidden="true">
+          <div class="visual-glow"></div>
+          <div class="code-card">
+            <div class="card-top"><span class="dots"><i></i><i></i><i></i></span><span class="card-caption">DEV STUDIO / WORKSPACE</span></div>
+            <div class="card-title" data-ua="Ідея → готовий проєкт" data-en="Idea → finished project">Ідея → готовий проєкт</div>
+            <p class="card-subtitle" data-ua="Сайти та рішення для Telegram" data-en="Websites and Telegram solutions">Сайти та рішення для Telegram</p>
+            <div class="stack">
+              <div class="stack-row"><span class="stack-icon">◈</span><span data-ua="Сучасні адаптивні сайти" data-en="Modern responsive websites">Сучасні адаптивні сайти</span></div>
+              <div class="stack-row"><span class="stack-icon">⌘</span><span data-ua="Telegram-боти та сценарії" data-en="Telegram bots and flows">Telegram-боти та сценарії</span></div>
+              <div class="stack-row"><span class="stack-icon">✳</span><span data-ua="Запуск і базове налаштування" data-en="Launch and essential setup">Запуск і базове налаштування</span></div>
+            </div>
+            <div class="card-bottom"><span>HTML · CSS · JS · Python</span><strong>BUILD WITH CARE</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker" data-ua="Що створюю" data-en="What I build">Що створюю</div><h2 data-ua="Послуги" data-en="Services">Послуги</h2></div>
+          <p class="section-intro" data-ua="Допоможу пройти шлях від задуму до робочої першої версії — з чіткою комунікацією на кожному етапі." data-en="From the first idea to a working first version, with clear communication at every step.">Допоможу пройти шлях від задуму до робочої першої версії — з чіткою комунікацією на кожному етапі.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card"><div class="service-number">01 / WEB</div><h3 data-ua="Сайти" data-en="Websites">Сайти</h3><p data-ua="Лендінги й невеликі сайти з виразним дизайном, адаптацією для телефону та зрозумілою навігацією." data-en="Landing pages and compact websites with distinctive design, mobile layouts, and clear navigation.">Лендінги й невеликі сайти з виразним дизайном, адаптацією для телефону та зрозумілою навігацією.</p></article>
+          <article class="service-card"><div class="service-number">02 / BOT</div><h3 data-ua="Telegram-боти" data-en="Telegram bots">Telegram-боти</h3><p data-ua="Боти для відповідей на типові запити, навігації, збору заявок і простих сценаріїв спілкування." data-en="Bots for common questions, navigation, collecting requests, and straightforward chat flows.">Боти для відповідей на типові запити, навігації, збору заявок і простих сценаріїв спілкування.</p></article>
+          <article class="service-card"><div class="service-number">03 / CARE</div><h3 data-ua="Оновлення та запуск" data-en="Updates and launch">Оновлення та запуск</h3><p data-ua="Допомога з виправленнями, публікацією статичного сайту та базовою перевіркою після запуску." data-en="Help with fixes, static-site publishing, and basic checks after launch.">Допомога з виправленнями, публікацією статичного сайту та базовою перевіркою після запуску.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker" data-ua="Вибрані роботи" data-en="Selected work">Вибрані роботи</div><h2 data-ua="Проєкти" data-en="Projects">Проєкти</h2></div>
+          <p class="section-intro" data-ua="Два навчально-практичні проєкти, які показують роботу із сайтами та Telegram." data-en="Two hands-on projects showcasing website and Telegram development.">Два навчально-практичні проєкти, які показують роботу із сайтами та Telegram.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-art blackline" aria-hidden="true"><div class="mock-window"><div class="mock-label">BARBERSHOP / DEMO WEBSITE</div><div class="mock-brand">BLACK <span>LINE</span></div><div class="mock-lines"><i></i><i></i><i></i></div></div></div>
+            <div class="project-info"><div class="project-type" data-ua="Демонстраційний сайт" data-en="Demo website">Демонстраційний сайт</div><h3>BLACK LINE</h3><p data-ua="Односторінковий сайт барбершопу з послугами, фотогалереєю, контактами та демонстраційною формою." data-en="A one-page barbershop site with services, a gallery, contact details, and a demo booking form.">Односторінковий сайт барбершопу з послугами, фотогалереєю, контактами та демонстраційною формою.</p><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">GitHub Pages</span></div><a class="button small" href="https://gagufun.github.io/black-line-site/" target="_blank" rel="noopener noreferrer" data-ua="Відкрити сайт" data-en="Open website">Відкрити сайт ↗</a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art nessi" aria-hidden="true"><div class="bot-mock"><div class="bot-head"><div class="bot-avatar">N</div><div><div class="bot-name">NESSI Community</div><div class="bot-online">Telegram bot</div></div></div><div class="bot-message" data-ua="Вітаю у спільноті NESSI. Обери, куди перейти:" data-en="Welcome to the NESSI community. Choose where to go:">Вітаю у спільноті NESSI. Обери, куди перейти:</div><div class="bot-pill">Актуальне</div><div class="bot-pill">Відгуки</div></div></div>
+            <div class="project-info"><div class="project-type" data-ua="Telegram-бот" data-en="Telegram bot">Telegram-бот</div><h3>NESSI</h3><p data-ua="Бот спільноти з вітальним екраном, переходами до каналів та кнопкою зв’язку." data-en="A community bot with a welcome screen, channel links, and a contact button.">Бот спільноти з вітальним екраном, переходами до каналів та кнопкою зв’язку.</p><div class="tags"><span class="tag">Python</span><span class="tag">aiogram</span><span class="tag">Telegram</span></div><a class="button small" href="https://t.me/NessiCommunityBot" target="_blank" rel="noopener noreferrer" data-ua="Відкрити бота" data-en="Open bot">Відкрити бота ↗</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="wrap">
+        <div class="section-head"><div><div class="section-kicker" data-ua="Прозорий процес" data-en="A clear process">Прозорий процес</div><h2 data-ua="Як працюємо" data-en="How we work">Як працюємо</h2></div><p class="section-intro" data-ua="Спершу узгоджуємо задачу та очікування. Далі рухаємося короткими зрозумілими кроками." data-en="We start by aligning on the brief and expectations, then move forward in clear, manageable steps.">Спершу узгоджуємо задачу та очікування. Далі рухаємося короткими зрозумілими кроками.</p></div>
+        <div class="steps">
+          <article class="step"><h3 data-ua="Обговорюємо задачу" data-en="Discuss the brief">Обговорюємо задачу</h3><p data-ua="Уточнюємо, для кого сайт або бот і що він має робити." data-en="Clarify who the website or bot is for and what it should do.">Уточнюємо, для кого сайт або бот і що він має робити.</p></article>
+          <article class="step"><h3 data-ua="Створюємо версію" data-en="Build a first version">Створюємо версію</h3><p data-ua="Готуємо структуру й робочий варіант, який можна переглянути." data-en="Prepare the structure and a working version you can review.">Готуємо структуру й робочий варіант, який можна переглянути.</p></article>
+          <article class="step"><h3 data-ua="Перевіряємо та запускаємо" data-en="Review and launch">Перевіряємо та запускаємо</h3><p data-ua="Вносимо узгоджені правки та публікуємо проєкт." data-en="Apply agreed changes and publish the project.">Вносимо узгоджені правки та публікуємо проєкт.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap contact-panel">
+        <div><div class="section-kicker" data-ua="Є ідея?" data-en="Have an idea?">Є ідея?</div><h2 data-ua="Обговорімо твій сайт або бота." data-en="Let's talk about your website or bot.">Обговорімо твій сайт або бота.</h2><p data-ua="Напиши в Telegram — відповімо на запитання та визначимо наступний крок." data-en="Send a message on Telegram and we can discuss your questions and next step.">Напиши в Telegram — відповімо на запитання та визначимо наступний крок.</p></div>
+        <a class="button" href="https://t.me/WhoisNessi" target="_blank" rel="noopener noreferrer" data-ua="Написати в Telegram" data-en="Message on Telegram">Написати в Telegram ↗</a>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>© 2026 DEV STUDIO</span><span data-ua="Сайти та Telegram-боти" data-en="Websites and Telegram bots">Сайти та Telegram-боти</span></div></footer>
+
+  <script>
+    const languageButtons = document.querySelectorAll("[data-lang]");
+    const translatable = document.querySelectorAll("[data-ua][data-en]");
+
+    function setLanguage(language) {
+      document.documentElement.lang = language;
+      const languageKey = language === "uk" ? "ua" : "en";
+      translatable.forEach((element) => {
+        const value = element.dataset[languageKey];
+        if (value.includes("<span>")) {
+          element.innerHTML = value;
+        } else {
+          element.textContent = value;
+        }
+      });
+      languageButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.lang === language));
+      });
+      document.querySelector("nav").setAttribute(
+        "aria-label",
+        language === "uk" ? "Головна навігація" : "Main navigation"
+      );
+    }
+
+    languageButtons.forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    });
+  </script>
+</body>
+</html>
